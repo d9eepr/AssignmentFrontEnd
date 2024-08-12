@@ -5,7 +5,10 @@ import axios from 'axios';
 import Dashboard from './Components/Dashboard';
 import UpdateBanner from './Components/UpdateBanner';
 
+
 const App = () => {
+
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [bannerVisible, setBannerVisible] = useState(false);
   const [bannerContent, setBannerContent] = useState({
       description: 'Welcome to our website!',
@@ -15,7 +18,8 @@ const App = () => {
 
   useEffect(() => {
       // Fetch the banner data on initial load
-      axios.get(`http://localhost:5000/api/banner`)
+      console.log(apiUrl)
+      axios.get(apiUrl)
           .then((response) => {
               setBannerContent(response.data);
               setBannerVisible(response.data.is_visible); // Set visibility based on fetched data
