@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect,useState } from 'react';
+import { Container, Box, Typography, Switch, Button } from '@mui/material';
+import Banner from './Components/Banner';
+import axios from 'axios';
+import Dashboard from './Components/Dashboard';
+import UpdateBanner from './Components/UpdateBanner';
 
-function App() {
+const App = () => {
+  const [bannerVisible, setBannerVisible] = useState(false);
+  const [bannerContent, setBannerContent] = useState({
+      description: 'Welcome to our website!',
+      timerSeconds: 8,
+      link: 'https://example.com',
+  });
+
+  useEffect(() => {
+      // Fetch the banner data on initial load
+      axios.get(`http://localhost:5000/api/banner`)
+          .then((response) => {
+              setBannerContent(response.data);
+              setBannerVisible(response.data.is_visible); // Set visibility based on fetched data
+              console.log(response.data);
+          })
+          .catch((error) => {
+              console.error('Error fetching banner:', error);
+          });
+  }, []);
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Container>
+          <Box sx={{ my: 4 }}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                  Take U Forward Assignment
+              </Typography>
+
+              {bannerVisible && (
+                  <Banner
+                      content={bannerContent}
+                      setVisible={setBannerVisible}
+                  />
+              )}
+
+              <Dashboard
+                  bannerContent={bannerContent}
+                  setBannerContent={setBannerContent}
+                  bannerVisible={bannerVisible}
+                  setBannerVisible={setBannerVisible}
+              />
+          </Box>
+      </Container>
   );
-}
+};
 
 export default App;
