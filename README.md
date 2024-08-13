@@ -1,4 +1,4 @@
-##This site worked on displaying a running conutdown banner display and hosted at 
+##This site will display a running conutdown banner and hide that after the counter.
 
 https://d9eepr.github.io/AssignmentFrontEnd/
 
