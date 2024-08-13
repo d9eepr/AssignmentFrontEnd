@@ -7,7 +7,12 @@ import UpdateBanner from './Components/UpdateBanner';
 
 
 const App = () => {
-
+  const config = {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    }
+  };
   const apiUrl = process.env.REACT_APP_API_URL;
   const [bannerVisible, setBannerVisible] = useState(false);
   const [bannerContent, setBannerContent] = useState({
@@ -19,7 +24,7 @@ const App = () => {
   useEffect(() => {
       // Fetch the banner data on initial load
       console.log(apiUrl)
-      axios.get(apiUrl)
+      axios.get(apiUrl,config)
           .then((response) => {
               setBannerContent(response.data);
               setBannerVisible(response.data.is_visible); // Set visibility based on fetched data

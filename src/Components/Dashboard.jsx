@@ -4,10 +4,18 @@ import { Box, TextField, Button, Switch, FormControlLabel } from '@mui/material'
 
 const Dashboard = ({ bannerContent, setBannerContent, bannerVisible, setBannerVisible }) => {
     const [localContent, setLocalContent] = useState(bannerContent);
+    const config = {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+        }
+      };
     const apiUrl = process.env.REACT_APP_API_URL;
+    const postapiUrl = process.env.REACT_APP_API_URL_POST;
     const handleUpdateBanner = () => {
         // Update the banner on the server
-        axios.put((apiUrl+'/1'), {
+        console.log(postapiUrl)
+        axios.put((postapiUrl), {
             is_visible: bannerVisible,
             description: localContent.description,
             timer_seconds: localContent.timerSeconds, // Ensure this matches the backend naming
@@ -19,7 +27,7 @@ const Dashboard = ({ bannerContent, setBannerContent, bannerVisible, setBannerVi
             setBannerVisible(prev => !prev);
             
             // Fetch the updated banner data
-            axios.get(apiUrl)
+            axios.get(apiUrl,config)
                 .then((response) => {
                     const data = response.data;
                     const isVisible = typeof data.is_visible === 'boolean' ? data.is_visible : true;

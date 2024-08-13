@@ -16,7 +16,7 @@
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
-    "proxy": "https://assignment-back-end-kn33-9yhbvf5hs-deepraj-evanes-projects.vercel.app"
+    "proxy": "https://assignment-back-end.vercel.app"
   },
   "scripts": {
     "start": "react-scripts start",
